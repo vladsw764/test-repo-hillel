@@ -26,7 +26,7 @@ public interface AutomobileRepository extends JpaRepository<Automobile, Long> {
     void markRemoved(UUID id);
 
     @Query(value = """
-            UPDATE automobile SET name = :name, color = :color, original_color = :originalColor WHERE id = :id
+            UPDATE automobile SET name = :name, color = :color, is_original_color = :originalColor WHERE id = :id
             """, nativeQuery = true)
     Automobile updateAutomobile(String name, String color, Boolean originalColor, UUID id);
 
@@ -39,7 +39,7 @@ public interface AutomobileRepository extends JpaRepository<Automobile, Long> {
     @Query(value = "SELECT * FROM automobile WHERE name = :name AND color = :color", nativeQuery = true)
     List<Automobile> findByNameAndColor(String name, String color);
 
-    @Query(value = "SELECT * FROM automobile WHERE color LIKE :colorStartWith%", nativeQuery = true)
+    @Query(value = "SELECT * FROM automobile WHERE color LIKE :colorStartWith", nativeQuery = true)
     List<Automobile> findByColorStartsWith(String colorStartWith, Pageable page);
 
     @Query(value = "SELECT * FROM automobile WHERE id = :id", nativeQuery = true)
