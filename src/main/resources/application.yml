@@ -4,42 +4,42 @@ spring:
     name: App
   profiles:
     active: development
-    #main:
-    # allow-bean-definition-overriding: true
-  # Database
+
+  # Database configuration
   datasource:
     driver-class-name: org.postgresql.Driver
-    # For correct works with docker-compose, we need to change "localhost" to a service name, take from docker-compose.yml
-    #url: jdbc:postgresql://db:5432/automobiles
-    url: jdbc:postgresql://localhost:5432/automobiles
+    url: jdbc:postgresql://localhost:5434/automobiles
     username: postgres
     password: postgres
-  # JPA properties
+
+  # JPA (Java Persistence API) configuration
   jpa:
     hibernate:
-      ddl-auto: update # When you launch the application for the first time - switch "update" at "create"
+      ddl-auto: none
     show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    #open-in-view: false
-    #generate-ddl: true
-  # Keycloak Configuration
+
+  # Security configuration for OAuth2
   security:
     oauth2:
       resource-server:
         jwt:
           issuer-uri: http://localhost:8180/realms/automobile-realm
-# JMS configuration
+
+  # JMS (Java Messaging Service) configuration
   jms:
     pub-sub-domain: true
   activemq:
     broker-url: tcp://localhost:61616
+
 # Server configuration
 server:
-  port: 8080  #set your port
+  port: 8080
   servlet:
     context-path: /demo
-# Logger configuration
+
+# Logging configuration
 logging:
   pattern:
     console: "%d %-5level %logger : %msg%n"
@@ -47,21 +47,18 @@ logging:
     org.springframework: info
     org.springframework.security: debug
     org.springframework.security.oauth2: debug
-    #org.hibernate: debug
-# Swagger configuration
+    com.kaluzny.demo: debug
+
+# Springdoc configuration for Swagger UI
 springdoc:
   swagger-ui:
-    path: /swagger-ui.html # swagger-ui custom path
+    path: /swagger-ui.html
   api-docs:
     path: /v3/api-docs.yaml
-# spring actuator
+
+# Spring Actuator configuration
 management:
   endpoints:
-    #enabled-by-default: true # If changed to false, you can enable separate functionality as indicated below
-    #endpoint: # here
-    # health:
-    #  enabled: true
     web:
       exposure:
-        # exclude: "*"
         include: "*"
