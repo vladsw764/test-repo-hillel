@@ -33,6 +33,10 @@ spring:
   activemq:
     broker-url: tcp://localhost:61616
 
+jwt:
+  converter:
+    principle-attribute: preferred_username
+
 # Server configuration
 server:
   port: 8080
